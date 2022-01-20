@@ -1,7 +1,11 @@
 module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		extend: {}
+		extend: {
+			fontFamily: {
+				sans: ['Poppins']
+			}
+		}
 	},
-	plugins: []
+	plugins: [require('@tailwindcss/forms')]
 };

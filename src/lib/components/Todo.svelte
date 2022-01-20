@@ -1,16 +1,20 @@
 <script>
-	import { deleteTodo, toggleTodo } from '../stores/todo-store';
+	import { fade } from 'svelte/transition'
+	import { deleteTodo, toggleTodo } from '$lib/stores/todo-store'
 
-	export let todo;
+	export let todo
 </script>
 
-<li class="bg-white flex items-center shadow-sm border border-gray-200 rounded-lg py-2 px-4">
+<li
+	transition:fade
+	class="bg-white flex items-center shadow-sm border border-gray-200 rounded-lg py-2 px-4"
+>
 	<input
 		type="checkbox"
 		name="completed"
 		checked={todo.completed}
-		on:change={() => toggleTodo(todo.id)}
-		class="mr-2 rounded hover:cursor-pointer"
+		on:change={() => toggleTodo({ id: todo.id, currentState: todo.completed })}
+		class="mr-4 rounded hover:cursor-pointer"
 	/>
 
 	<span class={`flex-1 text-gray-800 ${todo.completed ? 'line-through' : ''}`}>{todo.text}</span>

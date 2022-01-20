@@ -1,12 +1,21 @@
 <script>
-	import { addTodo } from '../stores/todo-store';
+	import { addTodo } from '$lib/stores/todo-store'
+	import user from '$lib/stores/auth-store'
 
-	let todo = '';
+	let todo = ''
+	let loading = false
 
-	const handleSubmit = () => {
-		addTodo(todo);
-		todo = '';
-	};
+	const handleSubmit = async () => {
+		try {
+			loading = true
+			await addTodo({ text: todo, user_id: $user.id })
+			todo = ''
+		} catch (error) {
+			console.error(error)
+		} finally {
+			loading = false
+		}
+	}
 </script>
 
 <form class="my-6 flex flex-col space-y-4" on:submit|preventDefault={handleSubmit}>
@@ -24,6 +33,7 @@
 
 	<button
 		type="submit"
+		disabled={loading}
 		class="shadow-sm rounded-lg bg-blue-500 hover:bg-blue-600 text-white py-2 px-4">Add todo</button
 	>
 </form>

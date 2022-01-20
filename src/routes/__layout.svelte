@@ -11,18 +11,16 @@
 		user.set(supabase.auth.user())
 		if (!$user) goto('/auth/signin')
 
-		supabase.auth.onAuthStateChange((event, session) => {
-			console.log('event', event)
-			console.log('session', session)
+		supabase.auth.onAuthStateChange((_event, session) => {
 			user.set(session?.user)
 			if (!session?.user) goto('/auth/signin')
 		})
 	})
 </script>
 
-<div class="container mx-auto my-6 px-6 max-w-4xl">
-	{#if $user}
+{#if $user}
+	<div class="container mx-auto my-6 px-6 max-w-4xl">
 		<Navbar />
-	{/if}
-	<slot />
-</div>
+		<slot />
+	</div>
+{/if}

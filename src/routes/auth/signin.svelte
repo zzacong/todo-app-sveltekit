@@ -1,14 +1,21 @@
 <script>
+	import { onMount } from 'svelte'
+	import { goto } from '$app/navigation'
 	import supabase from '$lib/supabase'
 
 	let loading = false
 	let email, password
+
+	onMount(() => {
+		if (supabase.auth.user()) goto('/dashboard')
+	})
 
 	const handleSignIn = async () => {
 		try {
 			loading = true
 			const { error } = await supabase.auth.signIn({ email, password })
 			if (error) throw error
+			goto('/dashboard')
 		} catch (error) {
 			console.error(error)
 			alert(error.error_description || error.message)
@@ -18,7 +25,7 @@
 	}
 </script>
 
-<div class="h-screen grid place-items-center">
+<div class="min-h-screen grid place-items-center -mt-6">
 	<main class="bg-slate-100 rounded-xl shadow-xl py-10 px-8 container max-w-xl">
 		<div class="mb-4">
 			<h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800">Sign In</h1>

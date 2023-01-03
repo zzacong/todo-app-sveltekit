@@ -30,5 +30,6 @@
 		</div>
 		<hr class="bg-gray-800 w-32 mx-auto" />
 	</header>
+
 	<slot />
 </div>

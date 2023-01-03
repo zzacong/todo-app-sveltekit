@@ -1,29 +1,31 @@
-<script>
-	import { onMount } from 'svelte'
-	import { goto } from '$app/navigation'
-	import user from '$lib/stores/auth-store'
-	import supabase from '$lib/supabase'
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { supabase } from '$lib/supabase';
 
-	let loading = false
-	let email, password
+	let loading = false;
+	let email: string, password: string;
 
-	onMount(() => {
-		if (supabase.auth.user()) goto('/dashboard')
-	})
+	onMount(async () => {
+		if ((await supabase.auth.getUser()).data.user) goto('/dashboard');
+	});
 
 	const handleSignUp = async () => {
 		try {
-			loading = true
-			const { error } = await supabase.auth.signUp({ email, password })
-			if (error) throw error
-			goto('/dashboard')
+			loading = true;
+			const { error } = await supabase.auth.signUp({ email, password });
+			if (error) {
+				console.error(error);
+				alert(error.message);
+				return;
+			}
+			goto('/dashboard');
 		} catch (error) {
-			console.error(error)
-			alert(error.error_description || error.message)
+			console.error(error);
 		} finally {
-			loading = false
+			loading = false;
 		}
-	}
+	};
 </script>
 
 <div class="min-h-screen grid place-items-center -mt-6">

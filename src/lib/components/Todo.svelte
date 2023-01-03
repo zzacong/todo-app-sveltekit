@@ -1,8 +1,8 @@
-<script>
-	import { fade } from 'svelte/transition'
-	import { deleteTodo, toggleTodo } from '$lib/stores/todo-store'
+<script lang="ts">
+	import { fade } from 'svelte/transition';
+	import { deleteTodo, toggleTodo, type Todo } from '$lib/stores/todo-store';
 
-	export let todo
+	export let todo: Todo;
 </script>
 
 <li

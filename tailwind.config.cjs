@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
@@ -11,4 +11,4 @@ module.exports = {
 		},
 	},
 	plugins: [require('@tailwindcss/forms')],
-}
+};

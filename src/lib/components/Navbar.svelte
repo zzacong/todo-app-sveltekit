@@ -1,12 +1,12 @@
-<script>
-	import { goto } from '$app/navigation'
-	import user from '$lib/stores/auth-store'
-	import supabase from '$lib/supabase'
+<script lang="ts">
+	import { goto } from '$app/navigation';
+	import { user } from '$lib/stores/auth-store';
+	import { supabase } from '$lib/supabase';
 
 	const logout = () => {
-		supabase.auth.signOut()
-		goto('/auth/signin')
-	}
+		supabase.auth.signOut();
+		goto('/auth/signin');
+	};
 </script>
 
 <header class="flex justify-between items-center mb-8 space-x-8 h-16">

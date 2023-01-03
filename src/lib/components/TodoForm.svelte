@@ -1,21 +1,23 @@
-<script>
-	import { addTodo } from '$lib/stores/todo-store'
-	import user from '$lib/stores/auth-store'
+<script lang="ts">
+	import { addTodo } from '$lib/stores/todo-store';
+	import { user } from '$lib/stores/auth-store';
 
-	let todo = ''
-	let loading = false
+	let todo = '';
+	let loading = false;
 
 	const handleSubmit = async () => {
+		if (!$user) return;
+
 		try {
-			loading = true
-			await addTodo({ text: todo, user_id: $user.id })
-			todo = ''
+			loading = true;
+			await addTodo({ text: todo, user_id: $user.id });
+			todo = '';
 		} catch (error) {
-			console.error(error)
+			console.error(error);
 		} finally {
-			loading = false
+			loading = false;
 		}
-	}
+	};
 </script>
 
 <form class="my-6 flex flex-col space-y-4" on:submit|preventDefault={handleSubmit}>

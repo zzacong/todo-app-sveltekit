@@ -13,7 +13,13 @@
 >
 	<form method="POST" action="?/toggleTodo" use:enhance>
 		<input type="hidden" name="id" value={todo.id} />
-		<input type="checkbox" name="completed" checked={todo.completed} class="sr-only" />
+		<input
+			type="checkbox"
+			name="completed"
+			checked={todo.completed}
+			aria-label="Is todo completed"
+			class="sr-only"
+		/>
 		<button
 			aria-label="Toggle todo"
 			type="submit"
@@ -41,7 +47,11 @@
 
 	<form method="POST" action="?/deleteTodo" use:enhance>
 		<input type="hidden" name="id" value={todo.id} />
-		<button type="submit" class="text-red-500 hover:bg-gray-50 p-2 rounded">
+		<button
+			type="submit"
+			class="text-red-500 hover:bg-gray-50 p-2 rounded"
+			aria-label="Delete todo"
+		>
 			<!-- trash icon -->
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

@@ -1,20 +1,27 @@
 <script lang="ts">
+	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
-
-	import { user } from '$lib/stores/auth-store';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { supabase } from '$lib/supabase';
 	import Navbar from '$lib/components/Navbar.svelte';
 
-	onMount(async () => {
-		user.set((await supabase.auth.getUser()).data.user);
-		supabase.auth.onAuthStateChange((_event, session) => {
-			user.set(session?.user);
+	export let data: PageData;
+
+	onMount(() => {
+		if (!data.session) goto('/auth/signin');
+
+		const {
+			data: { subscription },
+		} = supabase.auth.onAuthStateChange(() => {
+			console.log('Auth state change detected');
+			invalidateAll();
 		});
+		return () => subscription.unsubscribe();
 	});
 </script>
 
-<div class="container mx-auto pt-6 px-6 max-w-4xl">
-	{#if $user}
+<div class="container mx-auto py-6 px-6 max-w-4xl">
+	{#if data.session}
 		<Navbar />
 	{/if}
 	<slot />

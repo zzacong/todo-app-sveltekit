@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { user } from '$lib/stores/auth-store';
+	import { page } from '$app/stores';
 	import { supabase } from '$lib/supabase';
 
 	const logout = () => {
@@ -10,7 +10,7 @@
 </script>
 
 <header class="flex justify-between items-center mb-8 space-x-8 h-16">
-	<span class="text-gray-600 font-mono">{$user?.email}</span>
+	<span class="text-gray-600 font-mono">{$page.data.session?.user?.email}</span>
 	<nav class="grow space-x-4">
 		<a href="/dashboard">
 			<button

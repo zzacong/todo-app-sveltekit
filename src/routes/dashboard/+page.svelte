@@ -21,12 +21,12 @@
 				value={form?.data?.text ?? ''}
 				placeholder="What you wanna do?"
 				class={clsx('shadow-sm rounded-lg border-gray-200', form?.errors?.text && 'border-red-500')}
+				aria-invalid={!!form?.errors?.text}
+				aria-errormessage="err1"
 			/>
-			<label for="text">
-				{#if form?.errors?.text}
-					<span class="text-sm text-red-500">{form?.errors?.text[0]}</span>
-				{/if}
-			</label>
+			{#if form?.errors?.text}
+				<span id="err1" class="text-sm text-red-500">{form?.errors?.text[0]}</span>
+			{/if}
 		</div>
 
 		<button
